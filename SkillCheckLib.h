@@ -1,3 +1,4 @@
+/* PIOTR SLAWECKI */
 #pragma once
 #ifndef SKILLCHECKLIB_H
 #define SKILLCHECKLIB_H

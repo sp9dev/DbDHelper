@@ -1,5 +1,4 @@
-// DbDHelper.cpp : This file contains the 'main' function. Program execution begins and ends there.
-//
+/* PIOTR SLAWECKI */
 
 #include <iostream>
 #include <opencv2/opencv.hpp>
@@ -20,8 +19,8 @@ int main()
 	cout << "_________________________" << endl;
 	cout << "Welcome to DbDHelper," << endl;
 	cout << "a simple software, that helps you with the arcade apect of DbD game!" << endl;
-	cout << "To activate DbDHelper, press numpad slash" << endl;
-	cout << "By Piotr Slawecki, AGH University of Science and Technology" << endl;
+	cout << "To activate DbDHelper, press numpad slash." << endl;
+	cout << "By Piotr Slawecki" << endl;
 	cout << "_________________________" << endl;
 
 	AutoSkillcheck sc = AutoSkillcheck();

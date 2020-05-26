@@ -1,46 +1,37 @@
+/* PIOTR SLAWECKI */
 #include "SkillCheckLib.h"
 
 void AutoSkillcheck::capturescreen() {
-	int x_size = 250, y_size = 250; // <-- Your res for the image
+	int x_size = 250, y_size = 250;
+	HBITMAP hBitmap; 
+	Mat matBitmap; 
 
-	HBITMAP hBitmap; // <-- The image represented by hBitmap
+	HDC hdcSys = GetDC(NULL);
+	HDC hdcMem = CreateCompatibleDC(hdcSys); 
+	void *ptrBitmapPixels; 
 
-	Mat matBitmap; // <-- The image represented by mat
-
-	// Initialize DCs
-
-	HDC hdcSys = GetDC(NULL); // Get DC of the target capture..
-	HDC hdcMem = CreateCompatibleDC(hdcSys); // Create compatible DC 
-	void *ptrBitmapPixels; // <-- Pointer variable that will contain the potinter for the pixels
-
-	// Create hBitmap with Pointer to the pixels of the Bitmap
 	BITMAPINFO bi; HDC hdc;
 	ZeroMemory(&bi, sizeof(BITMAPINFO));
 	bi.bmiHeader.biSize = sizeof(BITMAPINFOHEADER);
 	bi.bmiHeader.biWidth = x_size;
 	bi.bmiHeader.biHeight = -y_size; 
-
 	bi.bmiHeader.biPlanes = 1;
-
 	bi.bmiHeader.biBitCount = 32;
 	hdc = GetDC(NULL);
 	hBitmap = CreateDIBSection(hdc, &bi, DIB_RGB_COLORS, &ptrBitmapPixels, NULL, 0);
-	// ^^ The output: hBitmap & ptrBitmapPixels
 
-	// Set hBitmap in the hdcMem 
 	SelectObject(hdcMem, hBitmap);
 
-	// Set matBitmap to point to the pixels of the hBitmap
 	matBitmap = Mat(y_size, x_size, CV_8UC4, ptrBitmapPixels, 0);
-	// * SETUP DONE *
 
-	// Now update the pixels using BitBlt
 	BitBlt(hdcMem, 0, 0, x_size, y_size, hdcSys, 835, 415, SRCCOPY); 
 	DeleteObject(hBitmap);
-	this->currentframe = matBitmap;
+	this->currentframe = matBitmap.clone();
 	DeleteDC(hdc);
 	DeleteDC(hdcSys);
-
+	ReleaseDC(NULL, hdc);
+	ReleaseDC(NULL, hdcSys);
+	DeleteDC(hdcMem);
 }
 
 void AutoSkillcheck::prepareframe() {
@@ -48,7 +39,7 @@ void AutoSkillcheck::prepareframe() {
 	cvtColor(this->currentframe, cap_gray, COLOR_BGR2GRAY);
 	threshold(cap_gray, res, 245, 255, 3);
 	cap_gray.release();
-	this->currentframe = res;
+	this->currentframe = res.clone();
 	res.release();
 }
 
@@ -75,7 +66,9 @@ void AutoSkillcheck::handleskillcheck() {
 	if (this->reg.detectdrop(2, 7) && skillcheck) {
 		this->presskey();
 		this->skillcheck = false;
-		Sleep(2000);
+		this->reg.setall(0);
+		Sleep(3000);
+
 	}
 }
 

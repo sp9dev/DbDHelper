@@ -1,3 +1,4 @@
+/* PIOTR SLAWECKI */
 #pragma once
 #ifndef SIMPLEREGISTER_H
 #define SIMPLEREGISTER_H
@@ -26,6 +27,8 @@ public:
 	int avg();
 
 	bool detectdrop(int lastframecount, int tolerance);
+
+	void setall(int value);
 
 
 };

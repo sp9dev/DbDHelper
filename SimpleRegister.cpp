@@ -1,3 +1,4 @@
+/* PIOTR SLAWECKI */
 #include "SimpleRegister.h"
 
 SimpleRegister::SimpleRegister(int rsize, int defaultvalue) {
@@ -48,4 +49,8 @@ bool SimpleRegister::detectdrop(int lastframecount, int tolerance) {
 	int previousavg = this->rangeavg(0, this->regsize - lastframecount - 1);
 	int latestavg = this->rangeavg(this->regsize - lastframecount, this->regsize - 1);
 	return (previousavg > latestavg + tolerance);
+}
+
+void SimpleRegister::setall(int value) {
+	for (int i = 0; i < this->regsize; i++) this->data[i] = value;
 }
