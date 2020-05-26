@@ -72,9 +72,18 @@ void AutoSkillcheck::handleskillcheck() {
 	}
 }
 
+void AutoSkillcheck::togglestate() {
+	this->activated = !this->activated;
+}
+
+bool AutoSkillcheck::getstate() {
+	return this->activated;
+}
+
 AutoSkillcheck::AutoSkillcheck() {
 	this->reg = SimpleRegister(10, 0);
 	this->skillcheck = false;
+	this->activated = false;
 	this->sckey.type = INPUT_KEYBOARD;
 	this->sckey.ki.wScan = ' ';
 	this->sckey.ki.time = 0;

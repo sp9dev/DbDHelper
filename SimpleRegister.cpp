@@ -15,7 +15,7 @@ SimpleRegister::SimpleRegister() {
 }
 
 SimpleRegister::~SimpleRegister() {
-	
+	delete[] this->data;
 }
 
 int SimpleRegister::size() const {

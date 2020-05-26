@@ -14,11 +14,10 @@ using namespace cv;
 
 int main()
 {
-	bool activated = false;
 
 	cout << "_________________________" << endl;
 	cout << "Welcome to DbDHelper," << endl;
-	cout << "a simple software, that helps you with the arcade apect of DbD game!" << endl;
+	cout << "a simple software, that helps you with the arcade aspect of DbD game!" << endl;
 	cout << "To activate DbDHelper, press numpad slash." << endl;
 	cout << "By Piotr Slawecki" << endl;
 	cout << "_________________________" << endl;
@@ -27,11 +26,11 @@ int main()
 	
 	while (true) {
 		if(GetKeyState(0x6F) < 0) {
-			activated = !activated;
+			sc.togglestate();
 			Sleep(400);
 		}
 
-		if (activated) sc.handleskillcheck();
+		if (sc.getstate()) sc.handleskillcheck();
 	}
 
 	

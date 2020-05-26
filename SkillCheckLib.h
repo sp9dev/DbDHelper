@@ -30,6 +30,10 @@ public:
 
 	void presskey();
 
+	void togglestate();
+
+	bool getstate();
+
 
 
 private:
@@ -37,6 +41,7 @@ private:
 	Mat currentframe;
 	bool skillcheck;
 	INPUT sckey;
+	bool activated;
 };
 
 

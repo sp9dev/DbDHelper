@@ -29,8 +29,6 @@ public:
 	bool detectdrop(int lastframecount, int tolerance);
 
 	void setall(int value);
-
-
 };
 
 
